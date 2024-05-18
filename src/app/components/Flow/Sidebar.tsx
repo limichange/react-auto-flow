@@ -21,7 +21,7 @@ export const Sidebar: FC<SidebarProps> = (props) => {
         className='dndnode input'
         onDragStart={(event) =>
           onDragStart(event, {
-            nodeType: 'input',
+            nodeType: 'State',
           })
         }
         draggable>

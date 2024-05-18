@@ -15,23 +15,33 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 import { Sidebar } from './Sidebar'
+import { ColorSelectorNode } from './ColorSelectorNode'
 
 export interface FlowProps {
   children?: ReactNode
 }
 
+const nodeTypes = {
+  ColorSelectorNode,
+}
+
 const initialNodes = [
-  { id: '1', position: { x: 100, y: 20 }, data: { label: '1' } },
+  {
+    id: '1',
+    data: { label: '1', color: '#ff0000' },
+    position: { x: 100, y: 20 },
+  },
   { id: '2', position: { x: 100, y: 100 }, data: { label: '2' } },
 ]
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }]
 
 export const Flow: FC<FlowProps> = (props) => {
   const { children } = props
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance | null>(null)
+
+  const [nodes, setNodes, onNodesChange] = useNodesState<{}>(initialNodes)
 
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
@@ -62,11 +72,16 @@ export const Flow: FC<FlowProps> = (props) => {
         y: event.clientY,
       })
 
-      const newNode = {
+      let newNode = {
         id: nanoid(),
         type,
         position,
-        data: { label: `${type} node` },
+        data: { label: `${type}` },
+      }
+
+      if (type === 'state') {
+        newNode.type = 'input'
+        newNode.data.label = 'State'
       }
 
       setNodes((nds) => nds.concat(newNode))
@@ -80,6 +95,7 @@ export const Flow: FC<FlowProps> = (props) => {
         <Sidebar />
 
         <ReactFlow
+          nodeTypes={nodeTypes}
           onInit={setReactFlowInstance}
           onDrop={onDrop}
           onDragOver={onDragOver}
