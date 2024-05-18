@@ -13,7 +13,10 @@ export const ColorSelectorNode: FC<ColorSelectorNodeProps> = (props) => {
   const { data, isConnectable } = props
 
   return (
-    <>
+    <div
+      style={{
+        border: '1px solid #ccc',
+      }}>
       <Handle
         type='target'
         position={Position.Left}
@@ -44,6 +47,6 @@ export const ColorSelectorNode: FC<ColorSelectorNodeProps> = (props) => {
         style={{ bottom: 10, top: 'auto', background: '#555' }}
         isConnectable={isConnectable}
       />
-    </>
+    </div>
   )
 }

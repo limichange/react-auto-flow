@@ -28,6 +28,7 @@ const nodeTypes = {
 const initialNodes = [
   {
     id: '1',
+    type: 'ColorSelectorNode',
     data: { label: '1', color: '#ff0000' },
     position: { x: 100, y: 20 },
   },
