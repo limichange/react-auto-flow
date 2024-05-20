@@ -18,34 +18,31 @@ export const Sidebar: FC<SidebarProps> = (props) => {
   return (
     <aside>
       <div
-        className='dndnode input'
         onDragStart={(event) =>
           onDragStart(event, {
-            nodeType: 'State',
+            nodeType: 'ComponentStateNode',
           })
         }
         draggable>
         State
       </div>
       <div
-        className='dndnode'
         onDragStart={(event) =>
           onDragStart(event, {
-            nodeType: 'default',
+            nodeType: 'ComponentNode',
           })
         }
         draggable>
-        Default Node
+        Component
       </div>
       <div
-        className='dndnode output'
         onDragStart={(event) =>
           onDragStart(event, {
-            nodeType: 'output',
+            nodeType: 'ComponentHookNode',
           })
         }
         draggable>
-        Output Node
+        Hook
       </div>
       {children}
     </aside>

@@ -16,6 +16,9 @@ import ReactFlow, {
 import 'reactflow/dist/style.css'
 import { Sidebar } from './Sidebar'
 import { ColorSelectorNode } from './ColorSelectorNode'
+import { ComponentStateNode } from './ComponentStateNode'
+import { ComponentNode } from './ComponentNode'
+import { ComponentHookNode } from './ComponentHookNode'
 
 export interface FlowProps {
   children?: ReactNode
@@ -23,6 +26,9 @@ export interface FlowProps {
 
 const nodeTypes = {
   ColorSelectorNode,
+  ComponentStateNode,
+  ComponentNode,
+  ComponentHookNode,
 }
 
 const initialNodes = [
@@ -32,7 +38,12 @@ const initialNodes = [
     data: { label: '1', color: '#ff0000' },
     position: { x: 100, y: 20 },
   },
-  { id: '2', position: { x: 100, y: 100 }, data: { label: '2' } },
+  {
+    id: '2',
+    type: 'ComponentStateNode',
+    position: { x: 100, y: 100 },
+    data: { label: '2' },
+  },
 ]
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }]
 
@@ -92,7 +103,7 @@ export const Flow: FC<FlowProps> = (props) => {
 
   return (
     <div>
-      <div style={{ width: '100vw', height: '100vh' }}>
+      <div style={{ width: '90vw', height: '90vh' }}>
         <Sidebar />
 
         <ReactFlow
